@@ -1,0 +1,7 @@
+CREATE TABLE zaposleni (
+  id int(11) NOT NULL PRIMARY KEY,
+  ime varchar(255) NOT NULL,
+  broj_godina int(11) NOT NULL,
+  adresa varchar(255) NOT NULL,
+  visina_dohotka decimal(10,2) NOT NULL
+);
