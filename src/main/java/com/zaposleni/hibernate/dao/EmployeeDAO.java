@@ -12,27 +12,6 @@ import org.hibernate.Session;
 
 public class EmployeeDAO {
 
-  public static void saveEmployee(Employee employee) {
-    Session session = null;
-    Transaction transaction = null;
-
-    try {
-      session = HibernateUtil.getSessionFactory().openSession();
-      transaction = session.beginTransaction();
-      session.persist(employee);
-      
-      transaction.commit();
-    } catch (HibernateException e) {
-      if (transaction != null) {
-        transaction.rollback();
-      }
-    } finally {
-      if (session != null) {
-        session.close();
-      }
-    }
-  }
-
   public static List < Employee > searchEmployees(String name) {
     Session session = HibernateUtil.getSessionFactory().openSession();
     Transaction transaction = null;
@@ -57,18 +36,23 @@ public class EmployeeDAO {
     return employees;
   }
 
-  public static void updateEmployeeById(int id, Employee updatedEmployee) {
+  public static void updateAddEmployee(int id, Employee updatedEmployee) {
     Session session = HibernateUtil.getSessionFactory().openSession();
     Transaction transaction = null;
     
     try {
       transaction = session.beginTransaction();
       Employee employee = (Employee) session.get(Employee.class, id);
-      employee.setName(updatedEmployee.getName());
-      employee.setAddress(updatedEmployee.getAddress());
-      employee.setAmount(updatedEmployee.getAmount());
-      employee.setAge(updatedEmployee.getAge());
-      session.update(employee);
+      
+      if(employee == null){
+          session.persist(updatedEmployee);
+      }else{
+          employee.setName(updatedEmployee.getName());
+          employee.setAddress(updatedEmployee.getAddress());
+          employee.setAmount(updatedEmployee.getAmount());
+          employee.setAge(updatedEmployee.getAge());
+          session.update(employee);
+      }
       
       transaction.commit();
     } catch (HibernateException e) {

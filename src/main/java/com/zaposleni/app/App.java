@@ -63,7 +63,7 @@ public class App extends Frame implements ActionListener {
       emp.setAge(Integer.parseInt(age));
       emp.setAmount(Double.parseDouble(amount));
      
-      EmployeeDAO.updateEmployeeById(updateEmployeeId, emp);
+      EmployeeDAO.updateAddEmployee(updateEmployeeId, emp);
     } catch (NumberFormatException e) {}
   }
 
@@ -76,7 +76,7 @@ public class App extends Frame implements ActionListener {
       emp.setAmount(Double.parseDouble(amount));
       emp.setAge(Integer.parseInt(age));
 
-      EmployeeDAO.saveEmployee(emp);
+      EmployeeDAO.updateAddEmployee(emp.getId(), emp );
     } catch (NumberFormatException e) {}
 
   }
